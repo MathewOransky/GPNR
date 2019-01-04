@@ -10,7 +10,7 @@ const int slaveSelectPin = 10;
 
 void setup()
 {
-  uint8_t address = EEPROM.read(MRBUS_EE_DEVICE_ADDR);
+/*  uint8_t address = EEPROM.read(MRBUS_EE_DEVICE_ADDR);
   mrbus.begin();
   if (0xFF == address)
   {
@@ -22,11 +22,11 @@ void setup()
   // By MRBus convention, it's stored in tenths of seconds.  The Arduino counter operates in milliseconds
   updateInterval = (((unsigned int)EEPROM.read(MRBUS_EE_DEVICE_UPDATE_H))<<8) + EEPROM.read(MRBUS_EE_DEVICE_UPDATE_L);
   updateInterval *= 100;
-
+*/
   if (updateInterval > 2000)
     updateInterval = 2000;
 
-  mrbus.setNodeAddress(address);
+//  mrbus.setNodeAddress(address);
   lastUpdateTime = currentTime = millis();
   pinMode(3, OUTPUT);
   pinMode(slaveSelectPin, OUTPUT);
@@ -164,7 +164,7 @@ void loop()
   int val;
 
   currentTime = millis();
-  if (currentTime - lastUpdateTime >= updateInterval)
+/*  if (currentTime - lastUpdateTime >= updateInterval)
   {
     // More than 2 seconds have elapsed since we sent a status packet  
     MRBusPacket statusPkt;
@@ -198,56 +198,116 @@ void loop()
      lastTransmitTime = currentTime;
      mrbus.transmit();
   }
-
+*/
   //Turnout 1,2,3
   //Only one of the three inputs should be low
   if(0 == digitalRead(53)){
-    digitalWrite(28, 1);
-    digitalWrite(27, 0);
-    digitalWrite(26, 0);
-    digitalWrite(25, 1);
-    
-  }else if( 0 == digitalRead(52)){
     digitalWrite(28, 0);
     digitalWrite(27, 1);
     digitalWrite(26, 0);
     digitalWrite(25, 1);
     
+    digitalWrite(39, 0);
+    digitalWrite(38, 1); //bad
+    digitalWrite(37, 1); //bad
+  }else if( 0 == digitalRead(52)){
+    digitalWrite(28, 1);
+    digitalWrite(27, 0);
+    digitalWrite(26, 0);
+    digitalWrite(25, 1);
+
+    digitalWrite(39, 1); //Correct
+    digitalWrite(38, 0); //X
+    digitalWrite(37, 0); //Correct
   }else if (0 == digitalRead(51)){
     digitalWrite(28, 0);
     digitalWrite(27, 0);
     digitalWrite(26, 1);
     digitalWrite(25, 0);
     
+    digitalWrite(39, 0);
+    digitalWrite(38, 1);
+    digitalWrite(37, 1);
   }else{
     digitalWrite(28, 0);
     digitalWrite(27, 0);
     digitalWrite(26, 0);
     digitalWrite(25, 0);
     
+    digitalWrite(39, 0);
+    digitalWrite(38, 0);
+    digitalWrite(37, 0);
   }
 
   //Turnout 4
   val = digitalRead(50);
-  digitalWrite(24, val);
+  digitalWrite(24, val^1);
+  digitalWrite(36, val);
 
   //Turnout 5
+  val = digitalRead(49);
+  digitalWrite(23, val^1);
+  digitalWrite(35, val);
 
-  //Turnout 6
-
-  //Turnout 7
+  //Turnout 6/7 Crossover
+  val = digitalRead(48);
+  digitalWrite(22, val);  
+  digitalWrite(34, val^1);  //bad
+  digitalWrite(33, val^1); //bad
 
   //Turnout 8
+  val = digitalRead(47);
+  digitalWrite(21, val^1);  
+  digitalWrite(32, val);
 
   //Turnout 9
+  val = digitalRead(46);
+  digitalWrite(20, val);  
+  digitalWrite(31, val); //bad
 
   //Turnout 10
+  val = digitalRead(45);
+  digitalWrite(19, val^1);  
+  digitalWrite(30, val^1); //bad
 
   //Turnout 11
+  val = digitalRead(44);
+  digitalWrite(18, val^1);  
+  digitalWrite(29, val^1); //bad
 
-  //Turnout 12,13,14
+  //Turnout Other
+  val = digitalRead(43);
+  digitalWrite(17, val^1);  
+
+  //Turnout Other 2, 3, 4
+  //Only one of the three inputs should be low
+  if(0 == digitalRead(42)){
+    digitalWrite(16, 0);
+    digitalWrite(15, 1);
+    digitalWrite(14, 0);
+    digitalWrite(13, 1);
+    
+  }else if( 0 == digitalRead(41)){
+    digitalWrite(16, 0);
+    digitalWrite(15, 1);
+    digitalWrite(14, 0);
+    digitalWrite(13, 1);
+    
+  }else if (0 == digitalRead(40)){
+    digitalWrite(16, 0);
+    digitalWrite(15, 1);
+    digitalWrite(14, 0);
+    digitalWrite(13, 1);
+    
+  }else{
+    digitalWrite(16, 0);
+    digitalWrite(15, 1);
+    digitalWrite(14, 0);
+    digitalWrite(13, 1);
+    
+  }
 
   
 
-  digitalWrite(LED_BUILTIN,(currentTime/512)%2);
+  digitalWrite(LED_BUILTIN,(currentTime/128)%2);
 }
