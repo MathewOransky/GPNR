@@ -207,27 +207,27 @@ void loop()
     digitalWrite(26, 0);
     digitalWrite(25, 1);
     
-    digitalWrite(39, 0);
-    digitalWrite(38, 1); //bad
-    digitalWrite(37, 1); //bad
+    digitalWrite(39, 1);
+    digitalWrite(38, 0);
+    digitalWrite(37, 1);
   }else if( 0 == digitalRead(52)){
     digitalWrite(28, 1);
     digitalWrite(27, 0);
     digitalWrite(26, 0);
     digitalWrite(25, 1);
 
-    digitalWrite(39, 1); //Correct
+    digitalWrite(39, 0); //Correct
     digitalWrite(38, 0); //X
-    digitalWrite(37, 0); //Correct
+    digitalWrite(37, 1); //Correct
   }else if (0 == digitalRead(51)){
     digitalWrite(28, 0);
     digitalWrite(27, 0);
     digitalWrite(26, 1);
     digitalWrite(25, 0);
     
-    digitalWrite(39, 0);
+    digitalWrite(39, 1);
     digitalWrite(38, 1);
-    digitalWrite(37, 1);
+    digitalWrite(37, 0);
   }else{
     digitalWrite(28, 0);
     digitalWrite(27, 0);
@@ -241,70 +241,67 @@ void loop()
 
   //Turnout 4
   val = digitalRead(50);
-  digitalWrite(24, val^1);
-  digitalWrite(36, val);
+  digitalWrite(24, !val);
+  digitalWrite(36, !val);
 
   //Turnout 5
   val = digitalRead(49);
-  digitalWrite(23, val^1);
-  digitalWrite(35, val);
+  digitalWrite(23, !val);
+  digitalWrite(35, !val);
 
   //Turnout 6/7 Crossover
   val = digitalRead(48);
   digitalWrite(22, val);  
-  digitalWrite(34, val^1);  //bad
-  digitalWrite(33, val^1); //bad
+  digitalWrite(34, !val);
+  digitalWrite(33, !val);
 
   //Turnout 8
   val = digitalRead(47);
-  digitalWrite(21, val^1);  
-  digitalWrite(32, val);
+  digitalWrite(21, !val);  
+  digitalWrite(32, !val);
 
   //Turnout 9
   val = digitalRead(46);
   digitalWrite(20, val);  
-  digitalWrite(31, val); //bad
+  digitalWrite(31, val);
 
   //Turnout 10
   val = digitalRead(45);
-  digitalWrite(19, val^1);  
-  digitalWrite(30, val^1); //bad
+  digitalWrite(19, !val);  
+  digitalWrite(30, !val);
 
   //Turnout 11
   val = digitalRead(44);
-  digitalWrite(18, val^1);  
-  digitalWrite(29, val^1); //bad
+  digitalWrite(18, !val);  
+  digitalWrite(29, !val);
 
   //Turnout Other
   val = digitalRead(43);
-  digitalWrite(17, val^1);  
+  digitalWrite(17, !val);  
+  //Motor is remote
 
   //Turnout Other 2, 3, 4
   //Only one of the three inputs should be low
   if(0 == digitalRead(42)){
     digitalWrite(16, 0);
-    digitalWrite(15, 1);
-    digitalWrite(14, 0);
-    digitalWrite(13, 1);
-    
+    digitalWrite(15, 0);
+    digitalWrite(14, 1);
+    //Motor is remote
   }else if( 0 == digitalRead(41)){
     digitalWrite(16, 0);
     digitalWrite(15, 1);
     digitalWrite(14, 0);
-    digitalWrite(13, 1);
-    
+    //Motor is remote
   }else if (0 == digitalRead(40)){
-    digitalWrite(16, 0);
-    digitalWrite(15, 1);
+    digitalWrite(16, 1);
+    digitalWrite(15, 0);
     digitalWrite(14, 0);
-    digitalWrite(13, 1);
-    
+    //Motor is remote  
   }else{
     digitalWrite(16, 0);
     digitalWrite(15, 1);
     digitalWrite(14, 0);
-    digitalWrite(13, 1);
-    
+    //Motor is remote  
   }
 
   
