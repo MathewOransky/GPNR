@@ -79,6 +79,7 @@ void setup()
   pinMode(15, OUTPUT);
   pinMode(14, OUTPUT);
   pinMode(2, OUTPUT); 
+  pinMode(3, OUTPUT);
  
 //  Serial.begin(9600);
 }
@@ -204,93 +205,91 @@ void loop()
 */
   //Turnout 
   //Only one of the three inputs should be low
-  if(0 == digitalRead(53)){
-    digitalWrite(2, 0);
-    digitalWrite(2, 1);
-    digitalWrite(2, 0);
-    digitalWrite(2, 1);
+  //12, 13
+  if(0 == digitalRead(53)){ //down
+//    digitalWrite(2, 0); //Tortoise
+    digitalWrite(39, 1); //Tortoise
     
-    digitalWrite(2, 1);
-    digitalWrite(2, 0);
-    digitalWrite(2, 1);
-  }else if( 0 == digitalRead(52)){
-    digitalWrite(2, 1);
-    digitalWrite(2, 0);
-    digitalWrite(2, 0);
-    digitalWrite(2, 1);
+    digitalWrite(3, 0); //LED ok
+    digitalWrite(14, 1); //LED ok
+    digitalWrite(15, 1); //LED ok
+  }else if( 0 == digitalRead(52)){ //middle
+//    digitalWrite(2, 1);
+    digitalWrite(39, 0);
+
+    digitalWrite(3, 0); //ok
+    digitalWrite(14, 0); //ok
+    digitalWrite(15, 0); //ok
+  }else if (0 == digitalRead(51)){ //Up
+//    digitalWrite(2, 1);
+    digitalWrite(39, 1);
+    
+    digitalWrite(3, 1); //ok
+    digitalWrite(14, 0); //ok
+    digitalWrite(15, 1); //ok
+  }else{
+//    digitalWrite(2, 0);
+    digitalWrite(39, 0);
 
     digitalWrite(3, 0);
-    digitalWrite(3, 0);
-    digitalWrite(3, 1);
-  }else if (0 == digitalRead(51)){
-    digitalWrite(2, 0);
-    digitalWrite(2, 0);
-    digitalWrite(2, 1);
-    digitalWrite(2, 0);
-    
-    digitalWrite(3, 1);
-    digitalWrite(3, 1);
-    digitalWrite(3, 0);
-  }else{
-    digitalWrite(2, 0);
-    digitalWrite(2, 0);
-    digitalWrite(2, 0);
-    digitalWrite(2, 0);
-    
-    digitalWrite(3, 0);
-    digitalWrite(3, 0);
-    digitalWrite(3, 0);
+    digitalWrite(14, 0);
+    digitalWrite(15, 0);
   }
 
   //Turnout 9
-  val = digitalRead(50);
-  digitalWrite(21, !val);
-  digitalWrite(3, !val);
+  val = digitalRead(50); //ok
+  digitalWrite(21, val); //ok
+  digitalWrite(31, !val); //ok
 
   //Turnout 10
-  val = digitalRead(49);
-  digitalWrite(2, !val);
-  digitalWrite(2, !val);
-
-  //Turnout 
-  val = digitalRead(48);
-  digitalWrite(2, val);  
-  digitalWrite(2, !val);
-  digitalWrite(2, !val);
-
-  //Turnout 8
-  val = digitalRead(47);
-  digitalWrite(2, !val);  
-  digitalWrite(2, !val);
-
-  //Turnout 9
-  val = digitalRead(46);
-  digitalWrite(2, val);  
-  digitalWrite(2, val);
-
-  //Turnout 10
-  val = digitalRead(45);
-  digitalWrite(2, !val);  
-  digitalWrite(2, !val);
+  val = digitalRead(49); //ok
+  digitalWrite(22, val); //ok
+  digitalWrite(30, !val); //ok
 
   //Turnout 11
-  val = digitalRead(44);
-  digitalWrite(25, !val);  
-  digitalWrite(2, !val);
+  val = digitalRead(48); //ok
+  digitalWrite(16, val); //ok
+  digitalWrite(29, val); //ok
 
-  //Turnout Other
-  val = digitalRead(43);
-  digitalWrite(2, !val);  
-  digitalWrite(2, !val);  
+  //Turnout 8
+  val = digitalRead(47); //ok
+  digitalWrite(20, val);  
+  digitalWrite(32, !val);
 
-  val = digitalRead(42);
-  digitalWrite(2, !val);  
-  digitalWrite(2, !val);
+  //Turnout 7
+  val = digitalRead(40); //ok
+  digitalWrite(19, !val);  
+  digitalWrite(33, val);
 
-  val = digitalRead(41);
+  //Turnout 6
+  val = digitalRead(41); //ok
   digitalWrite(18, !val);  
-  digitalWrite(2, !val);
+  digitalWrite(34, !val);
+
+  //Turnout 5
+  val = digitalRead(46); //ok
+  digitalWrite(17, !val); //ok
+  digitalWrite(35, !val); //Broke
+
+  //Turnout 4
+  val = digitalRead(42); //ok
+  digitalWrite(23, val);  
+  digitalWrite(36, !val);  
+
+  //turnout 3
+  val = digitalRead(43); //ok
+  digitalWrite(24, !val);  
+  digitalWrite(37, !val);
+
+  //turout 2
+  val = digitalRead(44); //ok
+  digitalWrite(25, val); //ok
+  digitalWrite(38, val); //ok
   
+  //turout 1
+  val = digitalRead(45); //ok
+  digitalWrite(26, !val);  
+  digitalWrite(2, !val);
 
   digitalWrite(LED_BUILTIN,(currentTime/128)%2);
 }
