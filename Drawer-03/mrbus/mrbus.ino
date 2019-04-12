@@ -207,29 +207,29 @@ void loop()
   //Only one of the three inputs should be low
   //12, 13
   if(0 == digitalRead(53)){ //down
-//    digitalWrite(2, 0); //Tortoise
-    digitalWrite(39, 1); //Tortoise
+    digitalWrite(27, 0); //Tortoise ok
+    //digitalWrite(28, 0); //Tortoise ok don't care
     
     digitalWrite(3, 0); //LED ok
     digitalWrite(14, 1); //LED ok
     digitalWrite(15, 1); //LED ok
   }else if( 0 == digitalRead(52)){ //middle
-//    digitalWrite(2, 1);
-    digitalWrite(39, 0);
+    digitalWrite(27, 1); 
+    digitalWrite(28, 1);
 
     digitalWrite(3, 0); //ok
     digitalWrite(14, 0); //ok
     digitalWrite(15, 0); //ok
   }else if (0 == digitalRead(51)){ //Up
-//    digitalWrite(2, 1);
-    digitalWrite(39, 1);
+    digitalWrite(27, 1);
+    digitalWrite(28, 0);
     
     digitalWrite(3, 1); //ok
     digitalWrite(14, 0); //ok
     digitalWrite(15, 1); //ok
   }else{
-//    digitalWrite(2, 0);
-    digitalWrite(39, 0);
+    digitalWrite(27, 0);
+    digitalWrite(28, 0);
 
     digitalWrite(3, 0);
     digitalWrite(14, 0);
@@ -253,33 +253,33 @@ void loop()
 
   //Turnout 8
   val = digitalRead(47); //ok
-  digitalWrite(20, val);  
-  digitalWrite(32, !val);
+  digitalWrite(20, val); //ok
+  digitalWrite(32, val); //ok
 
   //Turnout 7
   val = digitalRead(40); //ok
-  digitalWrite(19, !val);  
-  digitalWrite(33, val);
+  digitalWrite(19, !val); //ok
+  digitalWrite(33, !val); //ok
 
   //Turnout 6
   val = digitalRead(41); //ok
-  digitalWrite(18, !val);  
-  digitalWrite(34, !val);
+  digitalWrite(18, !val); //ok
+  digitalWrite(34, val); //ok
 
   //Turnout 5
   val = digitalRead(46); //ok
   digitalWrite(17, !val); //ok
-  digitalWrite(35, !val); //Broke
+  digitalWrite(35, !val); //ok
 
   //Turnout 4
   val = digitalRead(42); //ok
-  digitalWrite(23, val);  
-  digitalWrite(36, !val);  
+  digitalWrite(23, val); //ok
+  digitalWrite(36, !val); //ok
 
   //turnout 3
   val = digitalRead(43); //ok
-  digitalWrite(24, !val);  
-  digitalWrite(37, !val);
+  digitalWrite(24, !val); //ok
+  digitalWrite(37, !val); //ok
 
   //turout 2
   val = digitalRead(44); //ok
@@ -288,8 +288,9 @@ void loop()
   
   //turout 1
   val = digitalRead(45); //ok
-  digitalWrite(26, !val);  
-  digitalWrite(2, !val);
+  digitalWrite(26, !val); //ok
+  digitalWrite(2, !val);  //ok
+  digitalWrite(39, !val); //ok
 
   digitalWrite(LED_BUILTIN,(currentTime/128)%2);
 }
